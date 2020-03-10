@@ -1,7 +1,12 @@
 <template>
   <div class="p-3">
     <h1>{{ pageTitle }}</h1>
-    <table class="table">
+
+    <div class="text-center mt-5" v-if="loading">
+      <h2>Buscando candidatos <i class="fa fa-spin fa-spinner"></i></h2>
+    </div>
+
+    <table class="table" v-else>
       <thead>
       <tr>
         <th>#</th>
@@ -16,7 +21,7 @@
       >
         <td>{{ index }}</td>
         <td>
-          <router-link :to="{name: 'DetalhamentoCandidato', params: {email: candidato.email}, query: { fase: faseAtual }}">
+          <router-link :to="redirecionarRota(candidato)">
             {{ candidato.email }}
           </router-link>
         </td>
@@ -38,6 +43,7 @@
 <script>
 export default {
   name: 'Lista',
+
   computed: {
     faseAtual () {
       return this.$route.params.faseId
@@ -52,19 +58,54 @@ export default {
       return ''
     }
   },
+
   data () {
     return {
-      candidatos: [
-        {
-          email: 'candidato1@email.com',
-          status: 'pendente'
-        },
-        {
-          email: 'candidato2@email.com',
-          status: 'realizado'
-        }
-      ]
+      loading: false,
+      candidatos: []
     }
+  },
+
+  created () {
+    this.buscarCandidatos()
+  },
+
+  methods: {
+    buscarCandidatos (to) {
+      this.loading = true
+
+      const fase = to ? to.params.faseId : this.$route.params.faseId
+
+      console.log(`Buscando candidatos da ${fase}`)
+
+      setTimeout(() => {
+        this.loading = false
+        this.candidatos = [
+          {
+            email: 'candidato1@email.com',
+            status: 'pendente'
+          },
+          {
+            email: 'candidato2@email.com',
+            status: 'realizado'
+          }
+        ]
+      }, 800)
+    },
+
+    redirecionarRota (candidato) {
+      return {
+        name: 'DetalhamentoCandidato',
+        params: { email: candidato.email },
+        query: { fase: this.faseAtual }
+      }
+    }
+  },
+
+  beforeRouteUpdate (to, from, next) {
+    this.buscarCandidatos(to)
+
+    next()
   }
 }
 </script>
