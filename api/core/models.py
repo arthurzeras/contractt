@@ -90,7 +90,7 @@ class ProgressDetailModel(BaseModel):
     feedback = models.TextField(null=True)
 
     def __str__(self):
-        return f'User: {self.useremail} Stage: {self.stage}'
+        return f'User: {self.user.email} Stage: {self.stage}'
 
 
 class QuizModel(BaseModel):
