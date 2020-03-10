@@ -1,5 +1,13 @@
 <template>
   <div class="p-3">
+    <h1>Proposta</h1>
+    <hr>
+    <p>{{ candidato }}</p>
+
+    <div class="text-center mt-2">
+      <button class="btn btn-outline-danger mr-2">Recusada</button>
+      <button class="btn btn-success">Aceita</button>
+    </div>
   </div>
 </template>
 
