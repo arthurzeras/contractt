@@ -1,8 +1,5 @@
 <template>
   <div class="p-3">
-    <h1>Teste prático</h1>
-    <hr>
-    <p>{{ candidato }}</p>
     <p>
       <a
         href="https://portal.instruct.com.br/doku.php/instruct:pessoal:contratacao:frontend"
@@ -20,16 +17,7 @@
 
 <script>
 export default {
-  name: 'Fase03',
-  computed: {
-    candidato () {
-      return this.$route.params.email
-    }
-  },
-  data () {
-    return {
-    }
-  }
+  name: 'Fase03'
 }
 </script>
 
