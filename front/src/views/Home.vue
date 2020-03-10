@@ -1,20 +1,22 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-
-    <button @click="$root.$emit('comentario::show')">Abrir modal</button>
+    <h1>Bem vindo(a) ao</h1>
+    <img src="../assets/images/contractt-min.png" class="mt-4" width="400">
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
+  name: 'Home'
 }
 </script>
+
+<style lang="scss">
+  .home {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: calc(100vh - 200px);
+  }
+</style>
