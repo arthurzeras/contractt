@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3">
+  <div class="pt-3 pb-3">
     <ul>
       <li>Não negocia salário</li>
       <li>Disponibilidade para viajar</li>
