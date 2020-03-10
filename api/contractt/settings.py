@@ -30,7 +30,6 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'rest_framework',
     'django_extensions',
-    'graphene_django',
 ]
 
 LOCAL_APPS = [
@@ -125,10 +124,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-GRAPHENE = {
-    'SCHEMA': 'core.schema.schema',
-}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
