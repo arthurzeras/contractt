@@ -41,7 +41,7 @@ export default {
   computed: {
     faseAtual () {
       return this.$route.params.faseId
-    },
+    }
   },
   data () {
     return {
