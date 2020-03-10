@@ -14,11 +14,11 @@
 export default {
   data: () => ({
     fases: [
-      'Fase 01',
-      'Primeira entrevista técnica',
+      'Análise do currículo',
+      'Entrevista técnica',
       'Teste prático',
-      'Fase 04',
-      'Fase 05'
+      'Entr. RH/Code Review',
+      'Proposta'
     ]
   }),
 
@@ -27,7 +27,7 @@ export default {
       return {
         name: 'ListaCandidatos',
         params: {
-          faseId: `fase-0${fase}`
+          faseId: `fase-0${fase + 1}`
         }
       }
     }
