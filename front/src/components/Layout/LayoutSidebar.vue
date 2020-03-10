@@ -1,9 +1,9 @@
 <template>
   <nav class="layout-navbar">
     <ul class="nav flex-column">
-      <li class="nav-item" v-for="index in 5" :key="index">
+      <li class="nav-item" v-for="(fase, index) in fases" :key="index">
         <router-link class="nav-link" :to="montarRota(index)">
-          Fase {{ index }}
+          {{ fase }}
         </router-link>
       </li>
     </ul>
@@ -12,12 +12,22 @@
 
 <script>
 export default {
+  data: () => ({
+    fases: [
+      'Análise do currículo',
+      'Entrevista técnica',
+      'Teste prático',
+      'Entr. RH/Code Review',
+      'Proposta'
+    ]
+  }),
+
   methods: {
     montarRota (fase) {
       return {
         name: 'ListaCandidatos',
         params: {
-          faseId: `fase-0${fase}`
+          faseId: `fase-0${fase + 1}`
         }
       }
     }
