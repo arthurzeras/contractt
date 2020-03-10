@@ -15,7 +15,7 @@ export default {
   methods: {
     montarRota (fase) {
       return {
-        name: 'candidatos',
+        name: 'ListaCandidatos',
         params: {
           faseId: `fase-0${fase}`
         }

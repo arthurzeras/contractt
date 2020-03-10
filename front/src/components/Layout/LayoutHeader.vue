@@ -5,16 +5,42 @@
     </a>
 
     <div class="collapse navbar-collapse">
-      <form class="form-inline ml-auto">
+      <form class="form-inline ml-auto" @submit.prevent="buscarCandidato()">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Buscar candidato">
+          <input
+            required
+            type="text"
+            v-model="busca"
+            class="form-control"
+            placeholder="Buscar candidato"
+          >
+
           <div class="input-group-append">
-            <span class="input-group-text">
+            <button class="btn btn-outline-secondary">
               <i class="fa fa-search"></i>
-            </span>
+            </button>
           </div>
         </div>
       </form>
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  data: () => ({
+    busca: ''
+  }),
+
+  methods: {
+    buscarCandidato () {
+      this.$router.push({
+        name: 'BuscarCandidato',
+        params: {
+          query: this.busca
+        }
+      })
+    }
+  }
+}
+</script>
