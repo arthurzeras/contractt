@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    hostname: db
+    volumes:
+      - ./docker/postgres/:/docker-entrypoint-initdb.d/
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: /code/start-dev.sh
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DEBUG=True
+      - ALLOWED_HOSTS=localhost,contractt-api,0.0.0.0,127.0.0.1
+      - DATABASE_URL=postgres://postgres@db:5432/postgres
+    volumes:
+      - .:/code
+    stdin_open: true
+    tty: true
