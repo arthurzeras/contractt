@@ -1,39 +1,45 @@
 <template>
   <div>
-    <modal-comentario @ok="handleModalOk"/>
-    <h1>{{ pageTitle }}</h1>
-    <hr>
-    {{ candidato }}
+    <div class="text-center mt-5" v-if="loading">
+      <h2>Buscando informações do candidato <i class="fa fa-spin fa-spinner"></i></h2>
+    </div>
 
-    <div class="row">
-      <div class="col-md-8" :class="{'col-md-12': faseAtual === 'fase-01'}">
-        <component
-          :is="componenteAtual"
-          @finalizar="abrirModalComentario"
-        />
-      </div>
-      <div class="col-md-4" v-if="faseAtual !== 'fase-01'">
-        <div class="card mt-2 mb-2">
-          <div class="card-header">Comentários</div>
-          <div class="card-body">
-            <ul>
-              <li>
-                <div>Fase 1:</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At consequatur corporis, debitis est molestiae natus soluta. Alias autem consequuntur, doloribus eum excepturi minus molestias nobis non ratione sed tenetur voluptatem.</p>
-              </li>
-              <li>
-                <div>Fase 2:</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa delectus eaque ex explicabo, incidunt laudantium magni modi mollitia nostrum odit omnis, quos, repellendus sapiente similique sit sunt velit veritatis voluptates.</p>
-              </li>
-              <li>
-                <div>Fase 3:</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur dolor ducimus eius, esse ipsam magni maiores, maxime neque, officia omnis ratione soluta tempore! Blanditiis earum iure obcaecati quibusdam reprehenderit ut?</p>
-              </li>
-            </ul>
+    <template v-else>
+      <modal-comentario @ok="handleModalOk"/>
+      <h1>{{ pageTitle }}</h1>
+      <hr>
+      {{ candidato }}
+
+      <div class="row">
+        <div class="col-md-8" :class="{'col-md-12': faseAtual === 'fase-01'}">
+          <component
+            :is="componenteAtual"
+            @finalizar="abrirModalComentario"
+          />
+        </div>
+        <div class="col-md-4" v-if="faseAtual !== 'fase-01'">
+          <div class="card mt-2 mb-2">
+            <div class="card-header">Comentários</div>
+            <div class="card-body">
+              <ul>
+                <li>
+                  <div>Fase 1:</div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At consequatur corporis, debitis est molestiae natus soluta. Alias autem consequuntur, doloribus eum excepturi minus molestias nobis non ratione sed tenetur voluptatem.</p>
+                </li>
+                <li>
+                  <div>Fase 2:</div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa delectus eaque ex explicabo, incidunt laudantium magni modi mollitia nostrum odit omnis, quos, repellendus sapiente similique sit sunt velit veritatis voluptates.</p>
+                </li>
+                <li>
+                  <div>Fase 3:</div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur dolor ducimus eius, esse ipsam magni maiores, maxime neque, officia omnis ratione soluta tempore! Blanditiis earum iure obcaecati quibusdam reprehenderit ut?</p>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -79,10 +85,14 @@ export default {
       return this.$route.params.email
     }
   },
+  created () {
+    this.buscarDadosCandidato()
+  },
   data () {
     return {
+      loading: false,
       modalAcao: null,
-      faseAtual: this.$route.query.fase
+      faseAtual: null
     }
   },
   methods: {
@@ -94,6 +104,15 @@ export default {
     handleModalOk (comentario) {
       console.log(`enviar request para api com a ação de: ${this.modalAcao} e o comentario: ${comentario}`)
       this.$root.$emit('comentario::hide')
+    },
+
+    buscarDadosCandidato () {
+      this.loading = true
+
+      setTimeout(() => {
+        this.faseAtual = this.$route.query.fase
+        this.loading = false
+      }, 800)
     }
   }
 }
