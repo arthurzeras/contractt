@@ -1,32 +1,31 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div id="app" class="container-fluid">
+    <layout-header/>
+
+    <div class="row">
+      <div class="col-2">
+        <layout-sidebar/>
+      </div>
+
+      <div class="col">
+        <router-view/>
+      </div>
     </div>
-    <router-view/>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import LayoutHeader from '@/components/Layout/LayoutHeader'
+import LayoutSidebar from '@/components/Layout/LayoutSidebar'
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+export default {
+  components: {
+    LayoutHeader,
+    LayoutSidebar
   }
 }
+</script>
+
+<style lang="scss">
+
 </style>
