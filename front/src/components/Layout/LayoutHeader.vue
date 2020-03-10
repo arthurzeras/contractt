@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
+    <router-link class="navbar-brand" to="/">
       <img src="../../assets/images/contractt-min.png" height="70">
-    </a>
+    </router-link>
 
     <div class="collapse navbar-collapse">
       <form class="form-inline ml-auto" @submit.prevent="buscarCandidato()">
