@@ -134,3 +134,5 @@ GRAPHENE = {
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
+
+SURVEYMONKEY_ACCESS_TOKEN = config('SURVEYMONKEY_ACCESS_TOKEN', default='')
