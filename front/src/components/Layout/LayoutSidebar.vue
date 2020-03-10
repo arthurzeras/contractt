@@ -27,7 +27,7 @@ export default {
       return {
         name: 'ListaCandidatos',
         params: {
-          faseId: `fase-0${fase}`
+          faseId: `fase-0${fase + 1}`
         }
       }
     }
