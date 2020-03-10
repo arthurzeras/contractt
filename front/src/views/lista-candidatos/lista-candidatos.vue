@@ -15,7 +15,7 @@
       >
         <th scope="row">{{ index }}</th>
         <th>
-          <router-link :to="{name: 'DetalhamentoCandidato', params: {email: candidato.email}}">
+          <router-link :to="{name: 'DetalhamentoCandidato', params: {email: candidato.email}, query: { fase: faseAtual }}">
             {{ candidato.email }}
           </router-link>
         </th>

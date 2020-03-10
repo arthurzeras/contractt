@@ -18,12 +18,15 @@ export default {
   },
   computed: {
     componenteAtual () {
-      return 'Fase01'
+      return new Map([
+        ['fase-01', Fase01],
+        ['fase-02', Fase02]
+      ]).get(this.faseAtual)
     }
   },
   data () {
     return {
-      faseAtual: 'fase-01'
+      faseAtual: this.$route.query.fase
     }
   }
 }
