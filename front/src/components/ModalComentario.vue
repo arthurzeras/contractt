@@ -47,7 +47,7 @@ export default {
     },
 
     ok () {
-      this.$emit('ok')
+      this.$emit('ok', this.comentario)
     }
   }
 }

@@ -1,8 +1,11 @@
 <template>
   <div>
-    <modal-comentario/>
+    <modal-comentario @ok="handleModalOk"/>
 
-    <component :is="componenteAtual"/>
+    <component
+      :is="componenteAtual"
+      @finalizar="abrirModalComentario"
+    />
   </div>
 </template>
 
@@ -38,7 +41,19 @@ export default {
   },
   data () {
     return {
+      modalAcao: null,
       faseAtual: this.$route.query.fase
+    }
+  },
+  methods: {
+    abrirModalComentario (acao) {
+      this.modalAcao = acao
+      this.$root.$emit('comentario::show')
+    },
+
+    handleModalOk (comentario) {
+      console.log(`enviar request para api com a ação de: ${this.modalAcao} e o comentario: ${comentario}`)
+      this.$root.$emit('comentario::hide')
     }
   }
 }
