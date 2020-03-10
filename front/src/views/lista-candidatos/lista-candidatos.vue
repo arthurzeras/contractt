@@ -43,7 +43,7 @@ export default {
       return this.$route.params.faseId
     },
     pageTitle () {
-      if (this.$route.params.faseId === 'fase-01') return 'Avaliação de Currículo'
+      if (this.$route.params.faseId === 'fase-01') return 'Análise do currículo'
       if (this.$route.params.faseId === 'fase-02') return 'Entrevista técnica'
       if (this.$route.params.faseId === 'fase-03') return 'Teste prático'
       if (this.$route.params.faseId === 'fase-04') return 'Entrevista comportamental e code review'
