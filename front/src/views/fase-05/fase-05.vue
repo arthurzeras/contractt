@@ -1,8 +1,10 @@
 <template>
   <div class="p-3">
-    <h1>Proposta</h1>
-    <hr>
-    <p>{{ candidato }}</p>
+    <ul>
+      <li>Não negocia salário</li>
+      <li>Disponibilidade para viajar</li>
+      <li>Disponibilidade em horário comercial</li>
+    </ul>
 
     <div class="text-center mt-2">
       <button class="btn btn-outline-danger mr-2">Recusada</button>
@@ -13,16 +15,7 @@
 
 <script>
 export default {
-  name: 'Fase05',
-  computed: {
-    candidato () {
-      return this.$route.params.email
-    }
-  },
-  data () {
-    return {
-    }
-  }
+  name: 'Fase05'
 }
 </script>
 

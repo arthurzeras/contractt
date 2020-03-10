@@ -1,8 +1,5 @@
 <template>
   <div class="p-3">
-    <h1>Entrevista comportamental e Code Review</h1>
-    <hr>
-    <p>{{ candidato }}</p>
     <p>
       <a
         href="https://portal.instruct.com.br/doku.php/instruct:pessoal:contratacao:frontend"
@@ -30,16 +27,7 @@
 
 <script>
 export default {
-  name: 'Fase04',
-  computed: {
-    candidato () {
-      return this.$route.params.email
-    }
-  },
-  data () {
-    return {
-    }
-  }
+  name: 'Fase04'
 }
 </script>
 
