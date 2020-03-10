@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    hostname: db
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    command: /code/start-dev.sh
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file: api/.env
+    volumes:
+      - ./api:/code
+    stdin_open: true
+    tty: true
+  scheduler:
+    build: ./scheduler
+    command: python scheduler.py
+    volumes:
+      - ./scheduler:/code
