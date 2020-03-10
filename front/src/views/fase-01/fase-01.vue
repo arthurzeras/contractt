@@ -1,6 +1,8 @@
 <template>
   <div class="p-3 vh-100">
-    <h1>{{ candidato }}</h1>
+    <h1>Avaliação de Currículo</h1>
+    <hr>
+    <p>{{ candidato }}</p>
     <div class="embed-responsive embed-responsive-16by9 h-75">
       <embed src="https://expoforest.com.br/wp-content/uploads/2017/05/exemplo.pdf">
     </div>
