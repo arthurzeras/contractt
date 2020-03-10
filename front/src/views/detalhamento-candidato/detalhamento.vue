@@ -109,10 +109,16 @@ export default {
     buscarDadosCandidato () {
       this.loading = true
 
-      setTimeout(() => {
-        this.faseAtual = this.$route.query.fase
-        this.loading = false
-      }, 800)
+      this.$http.get(`candidato/${this.$route.query.id}`)
+        .then(res => {
+          console.log(res.data)
+        })
+        .finally(() => (this.loading = false))
+
+      // setTimeout(() => {
+      //   this.faseAtual = this.$route.query.fase
+      //   this.loading = false
+      // }, 800)
     }
   }
 }

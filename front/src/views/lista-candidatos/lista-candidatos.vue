@@ -76,28 +76,34 @@ export default {
 
       const fase = to ? to.params.faseId : this.$route.params.faseId
 
-      console.log(`Buscando candidatos da ${fase}`)
+      this.$http.get('candidatos')
+        .then(res => {
+          this.candidatos = res.data
+        })
+        .finally(() => (this.loading = false))
 
-      setTimeout(() => {
-        this.loading = false
-        this.candidatos = [
-          {
-            email: 'candidato1@email.com',
-            status: 'pendente'
-          },
-          {
-            email: 'candidato2@email.com',
-            status: 'realizado'
-          }
-        ]
-      }, 800)
+      // console.log(`Buscando candidatos da ${fase}`)
+
+      // setTimeout(() => {
+      //   this.loading = false
+      //   this.candidatos = [
+      //     {
+      //       email: 'candidato1@email.com',
+      //       status: 'pendente'
+      //     },
+      //     {
+      //       email: 'candidato2@email.com',
+      //       status: 'realizado'
+      //     }
+      //   ]
+      // }, 800)
     },
 
     redirecionarRota (candidato) {
       return {
         name: 'DetalhamentoCandidato',
         params: { email: candidato.email },
-        query: { fase: this.faseAtual }
+        query: { fase: this.faseAtual, id: candidato.id }
       }
     }
   },
