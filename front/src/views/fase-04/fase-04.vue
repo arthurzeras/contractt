@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3">
+  <div class="pt-3 pb-3">
     <p>
       <a
         href="https://portal.instruct.com.br/doku.php/instruct:pessoal:contratacao:frontend"

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3">
+  <div class="pt-3 pb-3">
     <p>
       <a
         href="https://pt.surveymonkey.com/analyze/mjkWTttSw38qXIoa26BwDOPm569P2I3HdUvSojr5ih4_3D?tab_clicked=1"
