@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-3">
     <div class="text-center mt-5" v-if="loading">
       <h2>Buscando informações do candidato <i class="fa fa-spin fa-spinner"></i></h2>
     </div>
