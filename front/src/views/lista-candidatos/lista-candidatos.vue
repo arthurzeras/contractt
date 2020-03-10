@@ -4,8 +4,9 @@
     <table class="table">
       <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Candidato</th>
+        <th>#</th>
+        <th>Candidato</th>
+        <th v-if="faseAtual !== 'fase-01'">Status</th>
       </tr>
       </thead>
       <tbody>
@@ -13,12 +14,21 @@
         v-for="(candidato, index) in candidatos"
         :key="candidato.email"
       >
-        <th scope="row">{{ index }}</th>
-        <th>
+        <td>{{ index }}</td>
+        <td>
           <router-link :to="{name: 'DetalhamentoCandidato', params: {email: candidato.email}, query: { fase: faseAtual }}">
             {{ candidato.email }}
           </router-link>
-        </th>
+        </td>
+        <td v-if="faseAtual !== 'fase-01'">
+          <span
+            class="badge"
+            :class="{
+              'badge-danger' : candidato.status === 'pendente',
+              'badge-success' : candidato.status === 'realizado',
+            }"
+          >{{ candidato.status }}</span>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -31,16 +41,18 @@ export default {
   computed: {
     faseAtual () {
       return this.$route.params.faseId
-    }
+    },
   },
   data () {
     return {
       candidatos: [
         {
-          email: 'candidato1@email.com'
+          email: 'candidato1@email.com',
+          status: 'pendente'
         },
         {
-          email: 'candidato2@email.com'
+          email: 'candidato2@email.com',
+          status: 'realizado'
         }
       ]
     }
