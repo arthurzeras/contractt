@@ -103,15 +103,25 @@ export default {
 
     handleModalOk (comentario) {
       console.log(`enviar request para api com a ação de: ${this.modalAcao} e o comentario: ${comentario}`)
+
+      // if (this.modalAcao === 'aprovar') {
+      //   this.$http.post()
+      // }
+
       this.$root.$emit('comentario::hide')
     },
 
     buscarDadosCandidato () {
       this.loading = true
 
-      this.$http.get(`candidato/${this.$route.query.id}`)
+      this.$http.get(`candidatos/${this.$route.query.id}/`)
         .then(res => {
-          console.log(res.data)
+          let fase = res.data.progress[res.data.progress.length - 1].stage
+          fase = fase.replace('_', '-')
+          fase = fase.toLowerCase()
+          fase = fase.replace('-', '-0')
+
+          this.faseAtual = fase
         })
         .finally(() => (this.loading = false))
 

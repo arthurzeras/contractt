@@ -74,7 +74,7 @@ export default {
     buscarCandidatos (to) {
       this.loading = true
 
-      const fase = to ? to.params.faseId : this.$route.params.faseId
+      // const fase = to ? to.params.faseId : this.$route.params.faseId
 
       this.$http.get('candidatos')
         .then(res => {
@@ -103,7 +103,7 @@ export default {
       return {
         name: 'DetalhamentoCandidato',
         params: { email: candidato.email },
-        query: { fase: this.faseAtual, id: candidato.id }
+        query: { id: candidato.id }
       }
     }
   },
