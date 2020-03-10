@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'Fase01',
+  name: 'Fase02',
   computed: {
     candidato () {
       return this.$route.params.email
