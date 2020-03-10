@@ -36,11 +36,14 @@ class UserModel(BaseModel):
         (PENDENTE, PENDENTE),
     ]
 
+    class Meta:
+        unique_together = [['email']]
+
     email = models.CharField(max_length=255)
     name = models.CharField(max_length=255, null=True)
     phone = models.CharField(max_length=255, null=True)
     macro_status = models.CharField(max_length=50, choices=STATUS_CHOICES)
-    micro_status = models.CharField(max_length=255)
+    micro_status = models.CharField(max_length=255, null=True)
     positions = models.ManyToManyField(PositionModel, related_name='user')
 
 
@@ -50,23 +53,8 @@ class CurriculumModel(BaseModel):
         on_delete=models.CASCADE,
         related_name='curriculum',
     )
-    description = models.TextField()
+    description = models.TextField(null=True)
     attachment = models.FileField(verbose_name='Curriculum File')
-
-
-class SurveyMonkeyModel(BaseModel):
-    user = models.ForeignKey(
-        UserModel,
-        on_delete=models.CASCADE,
-        related_name='survey_monkey_quiz',
-    )
-    position = models.ForeignKey(
-        PositionModel,
-        on_delete=models.CASCADE,
-        related_name='survey_monkey_quiz',
-    )
-    link_question = models.CharField(max_length=500)
-    link_answer = models.CharField(max_length=500)
 
 
 class ProgressDetailModel(BaseModel):
@@ -94,3 +82,32 @@ class ProgressDetailModel(BaseModel):
     )
     stage = models.CharField(max_length=50, choices=STAGE_CHOICES)
     feedback = models.TextField(null=True)
+
+
+class QuizModel(BaseModel):
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        related_name='quiz',
+    )
+    progress = models.ForeignKey(
+        ProgressDetailModel,
+        on_delete=models.CASCADE,
+        related_name='quiz',
+    )
+    link_questions = models.CharField(max_length=500)
+    link_answers = models.CharField(max_length=500)
+
+
+class QuizResultsModel(BaseModel):
+    quiz = models.ForeignKey(
+        QuizModel,
+        on_delete=models.CASCADE,
+        related_name='quiz_results',
+    )
+    correct = models.IntegerField()
+    incorrect = models.IntegerField()
+    partially_correct = models.IntegerField()
+    total_questions = models.IntegerField()
+    score = models.IntegerField()
+    total_score = models.IntegerField()
