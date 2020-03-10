@@ -1,20 +1,23 @@
 <template>
   <div>
-    <component :is="componenteAtual">
-    </component>
+    <modal-comentario/>
+
+    <component :is="componenteAtual"/>
   </div>
 </template>
 
 <script>
 import Fase01 from '../fase-01/fase-01'
 import Fase02 from '../fase-02/fase-02'
+import ModalComentario from '@/components/ModalComentario'
 
 export default {
   name: 'Lista',
   components: {
     // eslint-disable-next-line vue/no-unused-components
     Fase01,
-    Fase02
+    Fase02,
+    ModalComentario
   },
   computed: {
     componenteAtual () {
