@@ -1,6 +1,6 @@
 <template>
   <div class="p-3">
-    <h1 class="text-capitalize">{{ faseAtual | fase }}</h1>
+    <h1>{{ pageTitle }}</h1>
     <table class="table">
       <thead>
       <tr>
@@ -41,6 +41,15 @@ export default {
   computed: {
     faseAtual () {
       return this.$route.params.faseId
+    },
+    pageTitle () {
+      if (this.$route.params.faseId === 'fase-01') return 'Avaliação de Currículo'
+      if (this.$route.params.faseId === 'fase-02') return 'Entrevista técnica'
+      if (this.$route.params.faseId === 'fase-03') return 'Teste prático'
+      if (this.$route.params.faseId === 'fase-04') return 'Entrevista comportamental e code review'
+      if (this.$route.params.faseId === 'fase-05') return 'Proposta'
+
+      return ''
     }
   },
   data () {
@@ -55,11 +64,6 @@ export default {
           status: 'realizado'
         }
       ]
-    }
-  },
-  filters: {
-    fase (text) {
-      return text.split('-').join(' ')
     }
   }
 }
