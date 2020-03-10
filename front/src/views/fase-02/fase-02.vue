@@ -1,12 +1,31 @@
 <template>
-  <div>
-    <h1>Resultado Survey Monkey</h1>
+  <div class="p-3">
+    <h1>Primeira entrevista técnica</h1>
+    <hr>
+    <p>{{ candidato }}</p>
+    <p>
+      <a
+        href="https://pt.surveymonkey.com/analyze/mjkWTttSw38qXIoa26BwDOPm569P2I3HdUvSojr5ih4_3D?tab_clicked=1"
+        target="_blank"
+      >
+        Link do survey monkey
+      </a>
+    </p>
+    <div class="text-center mt-2">
+      <button class="btn btn-outline-danger mr-2">Reprovar</button>
+      <button class="btn btn-success">Aprovar</button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Fase01',
+  name: 'Fase02',
+  computed: {
+    candidato () {
+      return this.$route.params.email
+    }
+  },
   data () {
     return {
     }
