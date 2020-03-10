@@ -4,19 +4,22 @@ services:
   db:
     image: postgres
     hostname: db
-    volumes:
-      - ./docker/postgres/:/docker-entrypoint-initdb.d/
   api:
     build:
-      context: .
+      context: ./api
       dockerfile: Dockerfile.dev
     command: /code/start-dev.sh
     ports:
       - "8000:8000"
     depends_on:
       - db
-    env_file: .env
+    env_file: api/.env
     volumes:
-      - .:/code
+      - ./api:/code
     stdin_open: true
     tty: true
+  scheduler:
+    build: ./scheduler
+    command: python scheduler.py
+    volumes:
+      - ./scheduler:/code
