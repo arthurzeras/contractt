@@ -22,6 +22,9 @@ Unipath = "*"
 "psycopg2-binary" = "==2.8.4"
 gunicorn = "==19.9.0"
 requests = "*"
+google-api-python-client = "*"
+google-auth-httplib2 = "*"
+google-auth-oauthlib = "*"
 
 [requires]
 python_version = "3.8"
