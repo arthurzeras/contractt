@@ -74,11 +74,14 @@ export default {
     buscarCandidatos (to) {
       this.loading = true
 
-      // const fase = to ? to.params.faseId : this.$route.params.faseId
-
-      this.$http.get('candidatos')
+      this.$http.get('candidatos/')
         .then(res => {
-          this.candidatos = res.data
+          const fase = this.faseAtual.replace('-', '_').replace('_0', '_').toUpperCase()
+
+          this.candidatos = res.data.filter(can => {
+            const ultimaFase = can.progress[can.progress.length - 1].stage
+            return ultimaFase === fase && can.macro_status !== 'ELIMINADO'
+          })
         })
         .finally(() => (this.loading = false))
 
