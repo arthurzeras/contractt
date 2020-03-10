@@ -14,11 +14,11 @@
 export default {
   data: () => ({
     fases: [
-      'Fase 01',
-      'Primeira entrevista técnica',
+      'Análise do currículo',
+      'Entrevista técnica',
       'Teste prático',
-      'Fase 04',
-      'Fase 05'
+      'Entr. RH/Code Review',
+      'Proposta'
     ]
   }),
 
