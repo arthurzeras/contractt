@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-3">
     <modal-comentario @ok="handleModalOk"/>
     <h1>{{ pageTitle }}</h1>
     <hr>
