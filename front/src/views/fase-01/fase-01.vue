@@ -5,9 +5,9 @@
       <embed src="https://expoforest.com.br/wp-content/uploads/2017/05/exemplo.pdf">
     </div>
     <div class="text-center mt-2">
+      <button class="btn btn-outline-danger">Reprovar</button>
       <button class="btn btn-success mr-2">Aprovar</button>
 <!--      <button class="btn btn-outline-warning mr-2">Pendente</button>-->
-      <button class="btn btn-outline-danger">Reprovar</button>
     </div>
   </div>
 </template>
