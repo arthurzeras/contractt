@@ -74,30 +74,39 @@ export default {
     buscarCandidatos (to) {
       this.loading = true
 
-      const fase = to ? to.params.faseId : this.$route.params.faseId
+      this.$http.get('candidatos/')
+        .then(res => {
+          const fase = this.faseAtual.replace('-', '_').replace('_0', '_').toUpperCase()
 
-      console.log(`Buscando candidatos da ${fase}`)
+          this.candidatos = res.data.filter(can => {
+            const ultimaFase = can.progress[can.progress.length - 1].stage
+            return ultimaFase === fase && can.macro_status !== 'ELIMINADO'
+          })
+        })
+        .finally(() => (this.loading = false))
 
-      setTimeout(() => {
-        this.loading = false
-        this.candidatos = [
-          {
-            email: 'candidato1@email.com',
-            status: 'pendente'
-          },
-          {
-            email: 'candidato2@email.com',
-            status: 'realizado'
-          }
-        ]
-      }, 800)
+      // console.log(`Buscando candidatos da ${fase}`)
+
+      // setTimeout(() => {
+      //   this.loading = false
+      //   this.candidatos = [
+      //     {
+      //       email: 'candidato1@email.com',
+      //       status: 'pendente'
+      //     },
+      //     {
+      //       email: 'candidato2@email.com',
+      //       status: 'realizado'
+      //     }
+      //   ]
+      // }, 800)
     },
 
     redirecionarRota (candidato) {
       return {
         name: 'DetalhamentoCandidato',
         params: { email: candidato.email },
-        query: { fase: this.faseAtual }
+        query: { id: candidato.id }
       }
     }
   },

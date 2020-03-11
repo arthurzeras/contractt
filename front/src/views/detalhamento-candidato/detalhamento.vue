@@ -8,7 +8,7 @@
       <modal-comentario @ok="handleModalOk"/>
       <h1>{{ pageTitle }}</h1>
       <hr>
-      {{ candidato }}
+      {{ candidato.email }}
 
       <div class="row">
         <div class="col-md-8" :class="{'col-md-12': faseAtual === 'fase-01'}">
@@ -22,17 +22,9 @@
             <div class="card-header">Comentários</div>
             <div class="card-body">
               <ul>
-                <li>
-                  <div>Fase 1:</div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At consequatur corporis, debitis est molestiae natus soluta. Alias autem consequuntur, doloribus eum excepturi minus molestias nobis non ratione sed tenetur voluptatem.</p>
-                </li>
-                <li>
-                  <div>Fase 2:</div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa delectus eaque ex explicabo, incidunt laudantium magni modi mollitia nostrum odit omnis, quos, repellendus sapiente similique sit sunt velit veritatis voluptates.</p>
-                </li>
-                <li>
-                  <div>Fase 3:</div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur dolor ducimus eius, esse ipsam magni maiores, maxime neque, officia omnis ratione soluta tempore! Blanditiis earum iure obcaecati quibusdam reprehenderit ut?</p>
+                <li v-for="(comentario, i) in comentarios" :key="i">
+                  <div>Fase {{ i + 1}}</div>
+                  <p>{{ comentario || '--' }}</p>
                 </li>
               </ul>
             </div>
@@ -50,6 +42,14 @@ import Fase03 from '../fase-03/fase-03'
 import Fase04 from '../fase-04/fase-04'
 import Fase05 from '../fase-05/fase-05'
 import ModalComentario from '@/components/ModalComentario'
+
+const fases = [
+  'fase-01',
+  'fase-02',
+  'fase-03',
+  'fase-04',
+  'fase-05'
+]
 
 export default {
   name: 'Lista',
@@ -73,16 +73,16 @@ export default {
       ]).get(this.faseAtual)
     },
     pageTitle () {
-      if (this.$route.query.fase === 'fase-01') return 'Análise do currículo'
-      if (this.$route.query.fase === 'fase-02') return 'Entrevista técnica'
-      if (this.$route.query.fase === 'fase-03') return 'Teste prático'
-      if (this.$route.query.fase === 'fase-04') return 'Entrevista comportamental e code review'
-      if (this.$route.query.fase === 'fase-05') return 'Proposta'
+      if (this.faseAtual === 'fase-01') return 'Análise do currículo'
+      if (this.faseAtual === 'fase-02') return 'Entrevista técnica'
+      if (this.faseAtual === 'fase-03') return 'Teste prático'
+      if (this.faseAtual === 'fase-04') return 'Entrevista comportamental e code review'
+      if (this.faseAtual === 'fase-05') return 'Proposta'
 
       return ''
     },
-    candidato () {
-      return this.$route.params.email
+    comentarios () {
+      return this.candidato.progress.map(can => can.feedback)
     }
   },
   created () {
@@ -92,7 +92,8 @@ export default {
     return {
       loading: false,
       modalAcao: null,
-      faseAtual: null
+      faseAtual: null,
+      candidato: {}
     }
   },
   methods: {
@@ -102,17 +103,54 @@ export default {
     },
 
     handleModalOk (comentario) {
-      console.log(`enviar request para api com a ação de: ${this.modalAcao} e o comentario: ${comentario}`)
+      // console.log(`enviar request para api com a ação de: ${this.modalAcao} e o comentario: ${comentario}`)
+
+      if (this.modalAcao === 'aprovar') {
+        this.$http
+          .post('progress_detail/', {
+            feedback: comentario,
+            user: this.candidato.id,
+            stage: fases[fases.indexOf(this.faseAtual) + 1].replace('-', '_').replace('_0', '_').toUpperCase()
+          })
+          .then(res => {
+            this.$router.push({
+              name: 'ListaCandidatos'
+            })
+          })
+      }
+
+      if (this.modalAcao === 'reprovar') {
+        this.$http
+          .patch(`candidatos/${this.candidato.id}/`, { macro_status: 'ELIMINADO' })
+          .then(res => () => {
+            this.$router.push({
+              name: 'ListaCandidatos'
+            })
+          })
+      }
+
       this.$root.$emit('comentario::hide')
     },
 
     buscarDadosCandidato () {
       this.loading = true
 
-      setTimeout(() => {
-        this.faseAtual = this.$route.query.fase
-        this.loading = false
-      }, 800)
+      this.$http.get(`candidatos/${this.$route.query.id}/`)
+        .then(res => {
+          let fase = res.data.progress[res.data.progress.length - 1].stage
+          fase = fase.replace('_', '-')
+          fase = fase.toLowerCase()
+          fase = fase.replace('-', '-0')
+
+          this.faseAtual = fase
+          this.candidato = res.data
+        })
+        .finally(() => (this.loading = false))
+
+      // setTimeout(() => {
+      //   this.faseAtual = this.$route.query.fase
+      //   this.loading = false
+      // }, 800)
     }
   }
 }

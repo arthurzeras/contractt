@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3 vh-100">
+  <div class=" pt-3 pb-3 vh-100">
     <div class="embed-responsive embed-responsive-16by9">
       <embed src="https://expoforest.com.br/wp-content/uploads/2017/05/exemplo.pdf">
     </div>

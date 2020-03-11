@@ -89,8 +89,10 @@ class ProgressDetailModel(BaseModel):
     stage = models.CharField(max_length=50, choices=STAGE_CHOICES)
     feedback = models.TextField(null=True)
 
+    link = models.CharField(max_length=255, null=True)
+
     def __str__(self):
-        return f'User: {self.useremail} Stage: {self.stage}'
+        return f'User: {self.user.email} Stage: {self.stage}'
 
 
 class QuizModel(BaseModel):

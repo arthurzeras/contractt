@@ -10,6 +10,8 @@ Vue.config.productionTip = false
 
 Vue.use(VueResource)
 
+Vue.http.options.root = 'http://localhost:8000/api/'
+
 new Vue({
   router,
   store,
