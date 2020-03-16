@@ -133,6 +133,11 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
 
 SURVEYMONKEY_ACCESS_TOKEN = config('SURVEYMONKEY_ACCESS_TOKEN', default='')
+SURVEYS_IDS = config(
+    'SURVEYMONKEY_SURVEYS_IDS',
+    default=list,
+    cast=lambda v: [s.strip() for s in v.split(',')]
+)
 
 CORS_ORIGIN_ALLOW_ALL = True
 

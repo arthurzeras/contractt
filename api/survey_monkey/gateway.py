@@ -31,7 +31,7 @@ class SurveyMonkeyAPI:
 
         return requests.get(url, headers=self.HEADERS).json()
 
-    def get_question_email_id(self, survey_id):
+    def get_question_email_by_id(self, survey_id):
         url_pages = f'{self.BASE_URL}/surveys/{survey_id}/pages/'
         response_pages = requests.get(url_pages, headers=self.HEADERS)
         page_id = response_pages.json()['data'][0]['id']
@@ -43,5 +43,5 @@ class SurveyMonkeyAPI:
         ).json()
 
         for question in response_questions['data']:
-            if question['heading'] == 'Digite seu email':
+            if question['heading'] == 'Email do candidato':
                 return question['id']
