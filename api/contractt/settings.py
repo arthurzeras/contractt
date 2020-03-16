@@ -135,3 +135,5 @@ STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
 SURVEYMONKEY_ACCESS_TOKEN = config('SURVEYMONKEY_ACCESS_TOKEN', default='')
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+AUTH_USER_MODEL = 'core.UserModel'

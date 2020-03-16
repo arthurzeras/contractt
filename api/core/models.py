@@ -1,5 +1,6 @@
 import uuid
 
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -25,7 +26,7 @@ class PositionModel(BaseModel):
     status = models.CharField(max_length=255, choices=STATUS_CHOICES)
 
 
-class UserModel(BaseModel):
+class UserModel(AbstractUser):
     APROVADO = 'APROVADO'
     ELIMINADDO = 'ELIMINADO'
     PENDENTE = 'PENDENTE'
@@ -36,18 +37,16 @@ class UserModel(BaseModel):
         (PENDENTE, PENDENTE),
     ]
 
-    class Meta:
-        unique_together = [['email']]
-
-    email = models.CharField(max_length=255)
-    name = models.CharField(max_length=255, null=True)
-    phone = models.CharField(max_length=255, null=True)
+    phone = models.CharField(max_length=9, null=True)
     macro_status = models.CharField(max_length=50, choices=STATUS_CHOICES)
     micro_status = models.CharField(max_length=255, null=True)
     positions = models.ManyToManyField(PositionModel, related_name='user')
 
     def __str__(self):
-        return self.email
+        return self.email if self.email else self.username
+
+    def name(self):
+        return f'{self.first_name} {self.last_name}'
 
 
 class CurriculumModel(BaseModel):
@@ -121,6 +120,7 @@ class QuizModel(BaseModel):
 
     def __str__(self):
         return f'User: {self.user.email} Stage: {self.stage}'
+
 
 class QuizResultsModel(BaseModel):
     quiz = models.ForeignKey(
